@@ -1,8 +1,26 @@
 main {
     min-height: 80vh;
 }
+
+h1 {
+    font-size: 1.8rem;
+    padding: 1rem 0;
+}
+
+h2 {
+    font-size: 1.4rem;
+    padding: 0.5rem 0;
+}
+
+h3 {
+    padding: 1rem 0;
+}
+
 .logo-main {
     border-radius: 50%;
-    width:35px;
-    height:35px;
+    width: 35px;
+    height: 35px;
+}
+.remove-btn{
+    background: #fd0000;
 }
