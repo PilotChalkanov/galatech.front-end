@@ -6,10 +6,12 @@ import {logout} from '../actions/userActions'
 
 function Header() {
 
-    const userLogin = useSelector(state => state.userLogin)
-    const {userInfo} = userLogin
-    const userName = userInfo["username"].split('@')[0]
-
+    const userLogin = useSelector(state => state.userLogin);
+    let topRightLabel = 'LOGIN';
+    if (userLogin && userLogin.userInfo) {
+        const {userInfo} = userLogin
+        topRightLabel = userInfo["email"].split('@')[0]
+    }
     const dispatch = useDispatch()
 
     const logoutHandler = () => {
@@ -78,25 +80,23 @@ function Header() {
                                               fill="#ffffff"></path>
                                     </svg>
 
-
                                 </Button>
-                                {userInfo ? (
-                                    <NavDropdown
-                                        menuVariant="dark"
-                                        title={userName}
-                                        id='username'>
-                                        <LinkContainer to='/profile'>
-                                            <NavDropdown.Item>
-                                                Profile
-                                            </NavDropdown.Item>
-                                        </LinkContainer>
-                                        <NavDropdown.Item onClick={logoutHandler}>
-                                            Logout
-                                        </NavDropdown.Item>
-                                    </NavDropdown>
-                                ) : (<LinkContainer to='/login'>
+                                {topRightLabel === 'LOGIN' ? (<LinkContainer to='/login'>
                                     <Nav.Link><i className="fas fa-user"></i>Lоgin</Nav.Link>
                                 </LinkContainer>)
+                                    : (<NavDropdown
+                                    menuVariant="dark"
+                                    title={topRightLabel}
+                                    id='username'>
+                                    <LinkContainer to='/profile'>
+                                        <NavDropdown.Item>
+                                            Profile
+                                        </NavDropdown.Item>
+                                    </LinkContainer>
+                                    <NavDropdown.Item onClick={logoutHandler}>
+                                        Logout
+                                    </NavDropdown.Item>
+                                </NavDropdown>)
                                 }
                             </Nav>
 

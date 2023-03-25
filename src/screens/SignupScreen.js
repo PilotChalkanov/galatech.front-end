@@ -5,11 +5,15 @@ import {useDispatch, useSelector} from 'react-redux'
 import Loader from "../components/Loader"
 import Message from "../components/Message"
 import FormContainer from "../components/FormContainer"
-import {login} from '../actions/userActions'
+import {signup} from '../actions/userActions'
 
-function LoginScreen() {
+
+function SignupScreen(props) {
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [message, setMessage] = useState('')
 
     const dispatch = useDispatch()
 
@@ -17,8 +21,8 @@ function LoginScreen() {
     const [searchParams] = useSearchParams()
     const redirect = searchParams.get('redirect') ? searchParams.get('redirect') : '/'
 
-    const userLogin = useSelector(state => state.userLogin)
-    const {error, loading, userInfo} = userLogin
+    const userSignup = useSelector(state => state.userSignup)
+    const {error, loading, userInfo} = userSignup
 
     /*
     prevents authenticated user to navigate to login page
@@ -30,14 +34,22 @@ function LoginScreen() {
             navigate(`${redirect}`)
         }
     }, [navigate, userInfo, redirect])
+
     const submitHandler = (e) => {
-        console.log(error)
         e.preventDefault()
-        dispatch(login(email, password))
+        dispatch(signup(email, password))
+
+        if (password !== confirmPassword) {
+            setMessage('Passwords do not match')
+        } else {
+            dispatch(signup(email, password, confirmPassword))
+        }
     }
+
     return (
         <FormContainer>
-            <h1> Sign In </h1>
+            <h1> Sign Up </h1>
+            {message && <Message variant={'danger'}>{message}</Message> }
             {error && <Message variant={'danger'}>{error}</Message>}
             {loading && <Loader/>}
             <Form onSubmit={submitHandler}>
@@ -45,6 +57,7 @@ function LoginScreen() {
                     <Form.Label>
                         Email Address
                         <FormControl
+                            required
                             type='email'
                             placeholder='Enter Email'
                             value={email}
@@ -57,6 +70,7 @@ function LoginScreen() {
                     <Form.Label>
                         Password
                         <FormControl
+                            required
                             type='password'
                             placeholder='Enter Password'
                             value={password}
@@ -64,22 +78,36 @@ function LoginScreen() {
                         ></FormControl>
                     </Form.Label>
                 </Form.Group>
+
+                <Form.Group controlId='passwordConfirm'>
+                    <Form.Label>
+                        Confirm Password
+                        <FormControl
+                            required
+                            type='password'
+                            placeholder='Confirm Password'
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        ></FormControl>
+                    </Form.Label>
+                </Form.Group>
                 <Button type='submit' variant='primary'>
-                    Sign In
+                    Sign Up
                 </Button>
             </Form>
 
             <Row className='py-3'>
                 <Col>
-                    Don't have account? <Link to={redirect ? `/signup?redirect=${redirect}` : '/signup'}>
-                    Sign Up
+                    Already have an account? <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+                    Sign In
                 </Link>
 
                 </Col>
 
             </Row>
+
         </FormContainer>
-    )
+    );
 }
 
-export default LoginScreen;
+export default SignupScreen;

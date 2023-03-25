@@ -6,6 +6,8 @@ import ProductScreen from "./screens/ProductScreen"
 import HomeScreen from './screens/HomeScreen'
 import CartScreen from "./screens/CartScreen"
 import LoginScreen from "./screens/LoginScreen"
+import SignupScreen from "./screens/SignupScreen"
+
 
 
 function App() {
@@ -16,7 +18,10 @@ function App() {
                 <Container>
                     <Routes>
                         <Route path='/' element={<HomeScreen/>} exact/>
+
                         <Route path='/login' element={<LoginScreen/>} />
+                        <Route path='/signup' element={<SignupScreen/>} />
+
                         <Route path='/product/:id' element={<ProductScreen/>} />
                         <Route path='/cart/:id?' element={<CartScreen/>} />
                     </Routes>
