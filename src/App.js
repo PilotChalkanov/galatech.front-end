@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ProductScreen from "./screens/ProductScreen"
+import ShopScreen from './screens/ShopScreen'
 import HomeScreen from './screens/HomeScreen'
 import CartScreen from "./screens/CartScreen"
 import LoginScreen from "./screens/LoginScreen"
@@ -18,6 +19,7 @@ function App() {
                 <Container>
                     <Routes>
                         <Route path='/' element={<HomeScreen/>} exact/>
+                        <Route path='/shop' element={<ShopScreen/>} exact/>
 
                         <Route path='/login' element={<LoginScreen/>} />
                         <Route path='/signup' element={<SignupScreen/>} />
