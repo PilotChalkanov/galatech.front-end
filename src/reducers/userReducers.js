@@ -6,7 +6,11 @@ import {
 
     USER_SIGNUP_REQUEST,
     USER_SIGNUP_SUCCESS,
-    USER_SIGNUP_FAIL
+    USER_SIGNUP_FAIL,
+
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
+    USER_DETAILS_FAIL
 } from "../constants/userConstants";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -38,6 +42,9 @@ export const userSignupReducer = (state = {}, action) => {
 
         case USER_SIGNUP_FAIL:
             return {loading: false, error: action.payload}
+
+        case USER_LOGIN_SUCCESS:
+            return {loading: false, userInfo: action.payload}
 
         case USER_LOGOUT:
             return {}

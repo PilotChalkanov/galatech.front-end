@@ -40,16 +40,15 @@ export const login = (email, password) => async (dispatch) => {
             type: USER_LOGIN_FAIL,
             payload:
                 error.response && error.response.data
-                ? error.response.data.error
-                : error.response.data.error,
+                    ? error.response.data.error
+                    : error.response.data.error,
         })
     }
 }
 
-export const logout = (dispatch) =>
-{
+export const logout = (dispatch) => {
     localStorage.removeItem('userInfo')
-    dispatch({type:USER_LOGOUT})
+    dispatch({type: USER_LOGOUT})
 }
 
 
@@ -67,7 +66,7 @@ export const signup = (email, password, password2) => async (dispatch) => {
 
         const {data} = await axios.post(
             '/auth_app/users/signup/',
-            {'email': email, 'password': password, 'password2': password2 },
+            {'email': email, 'password': password, 'password2': password2},
             config
         )
         dispatch({
@@ -75,14 +74,9 @@ export const signup = (email, password, password2) => async (dispatch) => {
             payload: data
         })
 
-        const {loginData} = await axios.post(
-            '/auth_app/users/signup/',
-            {'email': email, 'password': password },
-            config
-        )
         dispatch({
             type: USER_LOGIN_SUCCESS,
-            payload: loginData
+            payload: data
         })
 
         localStorage.setItem('userInfo', JSON.stringify(data))

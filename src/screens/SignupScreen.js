@@ -36,9 +36,8 @@ function SignupScreen(props) {
     }, [navigate, userInfo, redirect])
 
     const submitHandler = (e) => {
-        e.preventDefault()
-        dispatch(signup(email, password))
 
+        e.preventDefault()
         if (password !== confirmPassword) {
             setMessage('Passwords do not match')
         } else {
