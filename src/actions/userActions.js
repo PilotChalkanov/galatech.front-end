@@ -7,7 +7,11 @@ import {
 
     USER_SIGNUP_REQUEST,
     USER_SIGNUP_SUCCESS,
-    USER_SIGNUP_FAIL
+    USER_SIGNUP_FAIL,
+
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
+    USER_DETAILS_FAIL
 } from "../constants/userConstants"
 
 export const login = (email, password) => async (dispatch) => {
@@ -35,7 +39,7 @@ export const login = (email, password) => async (dispatch) => {
         localStorage.setItem('userInfo', JSON.stringify(data))
 
     } catch (error) {
-        console.log(error.response.data)
+        console.log(error.response)
         dispatch({
             type: USER_LOGIN_FAIL,
             payload:
@@ -84,6 +88,43 @@ export const signup = (email, password, password2) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_SIGNUP_FAIL,
+            payload: error.response && error.response.data.password
+                ? error.response.data.password
+                : error.response.data.error,
+        })
+    }
+}
+
+export const getUserDetails = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_DETAILS_REQUEST
+        })
+
+        const {
+            userLogin: {userInfo},
+        } = getState()
+
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+
+        const {data} = await axios.get(
+            `/auth_app/users/${id}/`,
+            {},
+            config
+        )
+        dispatch({
+            type: USER_DETAILS_SUCCESS,
+            payload: data
+        })
+
+
+    } catch (error) {
+        dispatch({
+            type: USER_DETAILS_FAIL,
             payload: error.response && error.response.data.password
                 ? error.response.data.password
                 : error.response.data.error,
