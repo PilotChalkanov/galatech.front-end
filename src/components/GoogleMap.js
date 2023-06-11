@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container} from 'react-bootstrap'
+import {Row, Container} from 'react-bootstrap'
 import {useState, useEffect, useRef} from "react";
 
 function GoogleMap() {
@@ -56,7 +56,7 @@ function GoogleMap() {
         );
     };
     return (
-        <Container id={"google-map"} ref={googleMapRef} fluid className="vh-100">
+        <Container clasName="main-container" id={"google-map"} ref={googleMapRef} fluid style={{ height: "50vh", width: "100%", position: "relative" }}>
         </Container>
 
     );

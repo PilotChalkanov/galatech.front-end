@@ -5,10 +5,12 @@ import {Row, Col, Image, ListGroup, Button, Card, Form, ListGroupItem} from 'rea
 import Rating from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import SideMenu from '../components/SideMenu'
 import {listProductDetails} from '../actions/productActions'
 
 
 function ProductScreen() {
+    const categories = ['Category 1', 'Category 2', 'Category 3'];
 
     const [qty, setQty] = useState(1);
     const params = useParams();
@@ -27,7 +29,11 @@ function ProductScreen() {
         navigate(`/cart/${params.id}?qty=${qty}`)
     }
     return (
+
         <div>
+            <Row>
+                <SideMenu categories={categories} />
+            </Row>
             <Link to='/' className='btn btn-dark my-3'>Go Back</Link>
             {loading ?
                 <Loader/>

@@ -42,7 +42,7 @@ function Header() {
                                     <Nav.Link>About</Nav.Link>
                                 </LinkContainer>
 
-                                <LinkContainer to='/'>
+                                <LinkContainer to='/shop'>
                                     <Nav.Link>Shop</Nav.Link>
                                 </LinkContainer>
 

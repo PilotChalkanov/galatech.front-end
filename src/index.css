@@ -1,5 +1,6 @@
 main {
     min-height: 80vh;
+    background-color: #e8e8e8;
 }
 
 h1 {
@@ -23,4 +24,9 @@ h3 {
 }
 .remove-btn{
     background: #fd0000;
+}
+.main-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 255, 0.1);
 }
